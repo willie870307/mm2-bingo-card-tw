@@ -1,3 +1,4 @@
-# willie870307.github.io
+# SMM2 Bingo Card (zh-TW)
 
-MM2 Bingo is modified from https://psikai.github.io/mario-maker-bingo-card/
+For endless challenge  
+Modified from https://psikai.github.io/mario-maker-bingo-card/ by David Irvin
