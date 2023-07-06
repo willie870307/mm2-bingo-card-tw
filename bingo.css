@@ -1,0 +1,369 @@
+@font-face {
+  font-family: marioFont;
+  src: url("assets/fonts/super-mario-maker.ttf");
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --box-shadow: 18px 14px 2px rgba(0, 0, 0, 0.4);
+  --text-shadow: 8px 4px 1px rgba(0, 0, 0, 0.2);
+  --small-shadow: 8px 6px 1px rgba(0, 0, 0, 0.4);
+  --small-text: 3px 2px 1px rgba(0, 0, 0, 0.2);
+
+  --red: #e52521;
+  --maroon: #6a0400;
+  --tan: #ffd987;
+  --light-yellow: #f8dc81;
+  --yellow: #facd00;
+  --blue: #5c94fc;
+}
+
+html {
+  scrollbar-width: 8px;
+  scrollbar-color: var(--maroon) var(--tan);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--tan);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--maroon);
+  border-radius: 4px;
+}
+
+body {
+  margin: 0;
+  font-family: marioFont;
+  background-image: radial-gradient(
+    farthest-corner at 30% 20%,
+    var(--tan) 20%,
+    var(--yellow) 70%,
+    var(--red) 99%
+  );
+  background-attachment: fixed;
+  text-align: center;
+}
+
+.bingo-card {
+  background-color: var(--light-yellow);
+  margin: auto;
+  height: 750px;
+  width: 750px;
+  display: grid;
+  grid-template-rows: repeat(5, 150px);
+  grid-template-columns: repeat(5, 150px);
+  cursor: pointer;
+  border: 1px solid black;
+  border-radius: 16px;
+  box-shadow: var(--box-shadow);
+  animation: fade-in 100ms ease-in-out forwards;
+}
+
+.free-square {
+  grid-row: 3;
+  grid-column: 3;
+  cursor: default;
+}
+
+.bingo-square,
+.free-square {
+  font-size: 1.25rem;
+  border: 1px solid black;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+}
+
+.bingo-square:nth-of-type(1) {
+  border-top-left-radius: 12px;
+}
+
+.bingo-square:nth-of-type(5) {
+  border-top-right-radius: 16px;
+}
+
+.bingo-square:nth-of-type(20) {
+  border-bottom-left-radius: 16px;
+}
+
+.bingo-square:nth-of-type(24) {
+  border-bottom-right-radius: 20px;
+}
+
+button {
+  width: 200px;
+  max-width: 90%;
+  margin: 3rem auto;
+  padding: 1rem;
+  display: block;
+  font-family: inherit;
+  background-color: var(--blue);
+  font-size: 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: var(--small-shadow);
+}
+
+button:focus:not(:active) {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+button:active {
+  animation: button-press 100ms ease-in forwards;
+}
+
+button.view-card {
+  background-color: var(--tan);
+}
+
+@keyframes button-press {
+  to {
+    transform: scale(0.98);
+  }
+}
+
+.cross-off {
+  position: relative;
+}
+
+.cross-off::after {
+  content: "";
+  background-image: url("./assets/icons/fireflower-icon.png");
+  background-size: 6rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+  color: var(--red);
+  opacity: 0.3;
+  display: inline-block;
+  inset: 0;
+}
+
+header {
+  background-color: var(--yellow);
+  box-shadow: var(--small-shadow);
+  margin-block: 2rem;
+}
+
+.title {
+  position: relative;
+  width: fit-content;
+  margin: auto;
+  padding: 1.5em;
+  font-size: 12px;
+  white-space: nowrap;
+  display: grid;
+  grid-template-areas:
+    "super super super super super two"
+    "mm mm mm mm mm two"
+    "bingo bingo bingo bingo bingo bingo";
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(3, auto);
+}
+
+.title h1 {
+  display: contents;
+}
+
+.title span {
+  font-weight: normal;
+  letter-spacing: -1px;
+  display: inline-block;
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.title * {
+  position: relative;
+}
+
+.title .super {
+  font-size: 2.2em;
+  margin-bottom: 0;
+  text-align: left;
+  bottom: -0.25em;
+  grid-area: super;
+}
+
+.title .mario-maker {
+  font-size: 3em;
+  margin-top: 0;
+  margin-bottom: 0;
+  grid-area: mm;
+}
+
+.title .tm {
+  font-size: 0.3em;
+  vertical-align: baseline;
+  top: 0.4em;
+  left: -0.15em;
+  letter-spacing: -2px;
+}
+
+.title .two {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: var(--red);
+  font-size: 5.75em;
+  grid-area: two;
+}
+
+.title .bingo {
+  font-size: 4em;
+  margin-top: 0;
+  display: block;
+  grid-area: bingo;
+}
+
+.bingo-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  height: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 300ms ease, height 0ms linear 500ms;
+  transition-delay: 400ms;
+  z-index: 1000;
+}
+
+.bingo-modal {
+  background-color: var(--yellow);
+  width: 550px;
+  max-width: 95%;
+  padding: 3rem 1rem;
+  border-radius: 4px;
+  border: 4px solid var(--maroon);
+  box-shadow: var(--box-shadow);
+  opacity: 0;
+  transform: translateY(-50%);
+  transition: transform 200ms ease-in, opacity 200ms ease-in;
+  transition-delay: 100ms;
+}
+
+.bingo-modal h1 {
+  font-size: 2.5rem;
+}
+
+.bingo-modal button {
+  display: inline-block;
+  margin: 1rem;
+  white-space: nowrap;
+  box-shadow: var(--small-shadow);
+}
+
+.got-bingo .bingo-modal {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.got-bingo {
+  opacity: 1;
+  height: 100%;
+  transition: opacity 200ms ease;
+  transition-delay: 0ms;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes drop-in {
+  0% {
+    top: 30%;
+  }
+  100% {
+    top: 50%;
+  }
+}
+
+@media (max-width: 850px) {
+  body {
+    margin-top: 0;
+  }
+
+  .bingo-card {
+    width: 500px;
+    height: 500px;
+    grid-template-rows: repeat(5, 100px);
+    grid-template-columns: repeat(5, 100px);
+  }
+
+  .bingo-square,
+  .free-square {
+    font-size: 0.75rem;
+  }
+
+  .cross-off::after {
+    background-size: 4rem;
+  }
+
+  .title {
+    font-size: 8px;
+  }
+}
+
+@media (max-width: 550px) {
+  .bingo-card {
+    width: 375px;
+    height: 375px;
+    grid-template-rows: repeat(5, 75px);
+    grid-template-columns: repeat(5, 75px);
+  }
+
+  .bingo-square,
+  .free-square {
+    font-size: 0.6rem;
+  }
+
+  .cross-off::after {
+    background-size: 3rem;
+  }
+
+  .title {
+    font-size: 6px;
+  }
+
+  header,
+  button,
+  .bingo-card {
+    box-shadow: var(--small-shadow);
+  }
+
+  button {
+    width: 300px;
+    font-size: 1rem;
+    margin: 2rem auto;
+  }
+
+  .bingo-modal {
+    width: 375px;
+  }
+
+  .copyright {
+    margin: 0;
+  }
+}
